@@ -10,24 +10,27 @@ conn = sqlite3.connect("database.db")
 
 c = conn.cursor()
 
-
-c.execute("""CREATE TABLE user(
-        email VARCHAR(100) unique,
-        password VARCHAR(50),
-        pin INTEGER(4)
-        )""")
-
-
-conn.commit()
-## Create a user
-c.execute("INSERT INTO user VALUES('example1@gmail.com', 'password', '1234' )")
-conn.commit()
-
-## Select user from
-c.execute("SELECT * FROM user WHERE email='codingyespa@gmail.com' ")
-
-print(c.fetchone())
+def create_database():
+        c.execute("""CREATE TABLE user(
+                email VARCHAR(100) unique,
+                password VARCHAR(50),
+                pin INTEGER(4)
+                )""")
+        conn.commit()
+        conn.close()
 
 
 
-conn.close()
+def examples():
+        ## Create a user
+        c.execute("INSERT INTO user VALUES('example1@gmail.com', 'password', '1234' )")
+        conn.commit()
+
+        ## Select user from
+        c.execute("SELECT * FROM user WHERE email='codingyespa@gmail.com' ")
+
+        print(c.fetchone())
+
+
+
+        conn.close()
