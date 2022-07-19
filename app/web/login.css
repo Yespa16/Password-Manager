@@ -1,0 +1,28 @@
+body{
+    display: grid;
+    place-items: center;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    width: 55%;
+    margin: auto;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 3px 0;
+}
+
+button{
+    margin-top: 7px;
+}
+
+#error{
+    color: red;
+}
