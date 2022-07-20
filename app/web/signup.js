@@ -1,14 +1,18 @@
 
 
-function login(event) {
+function signup(event) {
     var error = document.getElementById("error")
 
     let email = form.elements["email"].value;
     let password = form.elements["password"].value;
-    let pin = form.elements["pin"].value
+    let confirm_password = form.elements["confirm"].value;
+    let pin = form.elements["pin"].value;
 
     
     // Data validation 
+    if (password != confirm_password) {
+        error.innerText = "Passwords does not match!";
+    }
     if (!constainsOnlyNumbers(pin)){
         error.innerText = "Pin must contain only digits"
         event.preventDefault();
@@ -28,8 +32,9 @@ function login(event) {
 
     // Send data to backend
     async function send_data(){
-        let response = await eel.login(email, password, pin)();
+        let response = await eel.sign_up(email, password, pin)();
         response = JSON.parse(response)
+        alert(response);
         if (response.type == "Error") {
             error.innerText = response.message
 
@@ -49,4 +54,4 @@ function constainsOnlyNumbers(str) {
 
 
 const form = document.getElementById("form");
-form.addEventListener("submit", login);
+form.addEventListener("submit", signup);

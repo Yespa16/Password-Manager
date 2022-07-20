@@ -20,13 +20,22 @@ class User:
 
 @eel.expose
 def sign_up(email, password, pin):
-    user = User(email, password, pin)
-    c.execute( f"INSERT INTO user VALUES ('{user.email}', '{user.password}', '{user.pin}') ")
+    response = {"type": "OK", "message": "Everything is OK"}
+    try: 
+        user = User(email, password, int(pin))
+        c.execute( f"INSERT INTO user VALUES ('{user.email}', '{user.password}', '{user.pin}') ")
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
+        response["type"] = "Success"
+        response["message"] = "Successfully created new user"
+        return json.dumps(response)
 
-    return (user.email, user.password, user.pin)
+    except:
+        response["type"] = "Error"
+        response["message"] = "Something was wrong. Please try again"
+        return json.dumps(response)
+
 
 
 
