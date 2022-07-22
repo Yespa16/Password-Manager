@@ -3,19 +3,21 @@ const user_id = sessionStorage.getItem("user_id");
 var table = document.getElementById("table");
 
 
-async function get_passwords(user_id){
-    console.log(user_id)
-    passwords =  await eel.get_passwords(user_id)();
-    return passwords
-}
 
-var passwords = get_passwords(user_id)
-async function fill_table(){
-    console.log(table)
-    let passwords = await get_passwords(user_id);
-    passwords = JSON.parse(passwords);
-    let add = ``
+function show_passwords(passwords){
+    // Reseting table
+    table.innerHTML = `
+    <tr>
+        <th>App</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Description</th>
+    </tr>
+    `
     passwords.forEach(password => {
+
+        let add = ``
         add += `
         <tr>
             <td>${password[0]}</td>
@@ -29,4 +31,41 @@ async function fill_table(){
     })
 }
 
+
+async function get_passwords(user_id){
+    passwords =  await eel.get_passwords(user_id)();
+    return passwords
+}
+
+
+
+async function fill_table(){
+    let passwords = await get_passwords(user_id);
+    passwords = JSON.parse(passwords);
+    show_passwords(passwords);
+    
+}
+
 fill_table();
+
+
+// Filter passwords
+const search_btn = document.getElementById("search_btn");
+search_btn.addEventListener("click", async () => {
+    const app = document.getElementById("search").value.toLowerCase();
+    let passwords = await get_passwords(user_id);
+    passwords = JSON.parse(passwords);
+
+    let result = [];
+    passwords.forEach(password => {
+        if (password[0] === app) {
+            result.push(password);
+        }
+        
+    })
+    
+    show_passwords(result);
+
+
+
+})
