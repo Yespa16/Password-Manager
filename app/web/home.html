@@ -1,1 +1,29 @@
-Home Page
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Password Manager</title>
+        <script src="eel.js"></script>
+        <link rel="stylesheet" href="home.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <main>
+            <h2>Your Passwords</h2>
+            <div class="actions">
+                <button id="add_btn">Add new</button>
+                <input type="text" id="search" placeholder="Search by app name">
+                <button id="search_btn">Search</button>
+            </div>
+            <table id="table">
+                <tr>
+                    <th>App</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Description</th>
+                </tr>
+            </table>
+        </main>
+        <script src="home.js"></script>
+    </body>
+</html>

@@ -3,6 +3,7 @@ This file takes care of creating new password and fetching all passwords logic.
 """
 
 from create_db import conn, c
+import eel, json
 
 class Password:
     def __init__(self, user, app, password, username="", email="", description="",):
@@ -17,7 +18,7 @@ class Password:
     def __repr__(self):
         return f"User: {self.user}\nApp: {self.app}"
 
-
+@eel.expose
 def create_password(user, app, password, username="", email="", description=""):
     password = Password(user, app, password, username, email, description)
     c.execute(f"INSERT INTO password VALUES ({password.user}, '{password.app.lower()}', '{password.username}', '{password.email}', '{password.password}', '{password.description}')")
@@ -29,8 +30,8 @@ def create_password(user, app, password, username="", email="", description=""):
 
 
 
-
-def get_passwords(user):
-    c.execute(f"SELECT * FROM password WHERE user={user}")
-    return c.fetchall()
+@eel.expose
+def get_passwords(user_id):
+    c.execute(f"SELECT app, email, username, password, description FROM password WHERE user={int(user_id)} ")
+    return json.dumps(c.fetchall())
 

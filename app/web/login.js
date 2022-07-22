@@ -34,7 +34,8 @@ function login(event) {
             error.innerText = response.message
 
         }else if (response.type == "Success") {
-            // Redirect to home page
+            // Redirect to home page, pass user id 
+            sessionStorage.setItem("user_id", response.vars.user_id)
             window.location.href = "home.html"
 
         }
