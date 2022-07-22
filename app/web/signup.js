@@ -12,6 +12,8 @@ function signup(event) {
     // Data validation 
     if (password != confirm_password) {
         error.innerText = "Passwords does not match!";
+        e.preventDefault();
+        return 0;
     }
     if (!constainsOnlyNumbers(pin)){
         error.innerText = "Pin must contain only digits"
@@ -27,19 +29,19 @@ function signup(event) {
 
 
     send_data(email, password, pin);
-    event.preventDefault();
+    
 
 
     // Send data to backend
     async function send_data(){
         let response = await eel.sign_up(email, password, pin)();
         response = JSON.parse(response)
-        alert(response);
         if (response.type == "Error") {
             error.innerText = response.message
 
         }else if (response.type == "Success") {
-            // Redirect to home page
+            // Redirect to home page, pass user id 
+            sessionStorage.setItem("user_id", response.vars.user_id);
             window.location.href = "home.html"
 
         }
