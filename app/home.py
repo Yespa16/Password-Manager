@@ -20,11 +20,20 @@ class Password:
 
 @eel.expose
 def create_password(user, app, password, username="", email="", description=""):
-    password = Password(user, app, password, username, email, description)
-    c.execute(f"INSERT INTO password VALUES ({password.user}, '{password.app.lower()}', '{password.username}', '{password.email}', '{password.password}', '{password.description}')")
-    conn.commit()
-    conn.close()
-    return (password.user, password.app)
+
+    response = {"type": "OK", "message": "Everything is OK"}
+    try:
+        
+        password = Password(user, app, password, username, email, description)
+        c.execute(f"INSERT INTO password VALUES ({password.user}, '{password.app.lower()}', '{password.username}', '{password.email}', '{password.password}', '{password.description}')")
+        conn.commit()
+        response["type"] = "Success"
+        response["Message"] = "Password successfully added to database!"
+        return json.dumps(response)
+    except:
+        response["type"] = "Error"
+        response["message"] = "Something went wrong. Please try again."
+        return json.dumps(response)
 
 
 

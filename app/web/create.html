@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="create.css">
+    <link rel="stylesheet" href="create.css">
+    <script src="eel.js"></script>
+</head>
+<body>
+    <main>
+        <a href="home.html"><-- Back</a>
+        <h2>Create new password</h2>
+        <form id="form">
+            <input type="text" id="app" placeholder="App name...">
+            <input type="text"  class="field"id="email" placeholder="Email...">
+            <input type="text" class="field"id="password" placeholder="Password...">
+            <input type="text"  class="field"id="username" placeholder="Username">
+            <input type="text"  class="field"id="confirm" placeholder="Confirm password...">
+            <textarea  id="description" cols="30" rows="10" placeholder="Description..."></textarea>
+            <button type="submit">Add</button>
+        </form>
+        <p id="error"></p>
+        <p id="info"></p>
+    </main>
+    <script src="create.js"></script>
+</body>
+</html>
