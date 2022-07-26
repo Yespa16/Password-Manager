@@ -38,9 +38,23 @@ def create_password(user, app, password, username="", email="", description=""):
 
 
 
+@eel.expose
+def delete_password(id):
+
+    response = {"type": "OK", "message": "Everything is OK"}
+    try:
+        c.execute(f"DELETE FROM password WHERE rowid={id}")
+        response["type"] = "Success"
+        response["message"] = "Successfully deleted the password"
+    except:
+        response["type"] = "Error"
+        response["message"] = "Something was wrong. Please try again"
+    return json.dumps(response)
+
+
 
 @eel.expose
 def get_passwords(user_id):
-    c.execute(f"SELECT app, email, username, password, description FROM password WHERE user={int(user_id)} ")
+    c.execute(f"SELECT rowid, app, email, username, password, description FROM password WHERE user={int(user_id)} ")
     return json.dumps(c.fetchall())
 

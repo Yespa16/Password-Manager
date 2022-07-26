@@ -13,6 +13,7 @@ function show_passwords(passwords){
         <th>Username</th>
         <th>Password</th>
         <th>Description</th>
+        <th>------</th>
     </tr>
     `
     passwords.forEach(password => {
@@ -20,11 +21,12 @@ function show_passwords(passwords){
         let add = ``
         add += `
         <tr>
-            <td>${password[0]}</td>
             <td>${password[1]}</td>
             <td>${password[2]}</td>
             <td>${password[3]}</td>
             <td>${password[4]}</td>
+            <td>${password[5]}</td>
+            <td><button class="delete_btn" onClick="deletePassword(${password[0]})">Delete</button></td>
         </tr>
     `
     table.innerHTML += add;
@@ -47,6 +49,18 @@ async function fill_table(){
 }
 
 fill_table();
+
+
+async function deletePassword(id){
+    let response = await eel.delete_password(id)();
+    response = JSON.parse(response);
+    if (response.type == "Error"){
+        alert(response.message);
+    }else{
+        location.reload();
+    }
+}
+
 
 
 // Filter passwords
